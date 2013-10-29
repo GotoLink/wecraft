@@ -1,0 +1,15 @@
+﻿
+tile.Conveyor Belt.name=Conveyor Belt
+tile.Arrow Sensor.name=Arrow Target
+tile.Drill.name=Drill
+tile.Fire Sensor.name=Fire Alarms
+tile.Metal Mesh.name=Metal Mesh
+tile.Drill-Head.name=Drill-Head
+tile.Time Sensor.name=Time Sensor
+tile.Burner.name=Burner
+tile.Water Tank.name=Water Tank
+
+item.Drill Head.name=Drill Head
+item.Metal Stick.name=Metal Stick
+
+itemGroup.W3(r4ft=W3(r4ft
