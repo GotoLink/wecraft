@@ -29,45 +29,13 @@ public class BlockConveyorBelt extends Block {
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
-		return false;
-	}
-
-	@Override
 	public boolean canPlaceBlockAt(World world, int i, int j, int k) {
 		return world.isBlockNormalCube(i, j - 1, k);
 	}
 
 	@Override
-	public void setBlockBoundsForItemRender() {
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-	}
-
-	@Override
-	public boolean renderAsNormalBlock() {
-		return false;
-	}
-
-	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
 		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 0.52F, k + 1);
-	}
-
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon(this.getTextureName() + "Front");
-		this.topDownTextures = new Icon[5];
-		this.topTextures = new Icon[5];
-		for (int i = 0; i < 5; i++) {
-			this.topDownTextures[i] = par1IconRegister.registerIcon(this.getTextureName() + "Top" + i);
-			this.topTextures[i] = par1IconRegister.registerIcon(this.getTextureName() + "TopDown" + i);
-		}
 	}
 
 	@Override
@@ -115,30 +83,16 @@ public class BlockConveyorBelt extends Block {
 		return blockIcon;
 	}
 
-	private Icon getTexture1(int j) {
-		if (j > 4) {
-			j -= 4;
-		}
-		if (j < 0) {
-			j += 4;
-		}
-		if (j < 5) {
-			return topDownTextures[j];
-		}
-		return topDownTextures[5];
-	}
-
-	private Icon getTexture2(int j) {
-		if (j < 5) {
-			return topTextures[j];
-		}
-		return topTextures[0];
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
 	}
 
 	@Override
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
 		int l = MathHelper.floor_double((entityliving.rotationYaw * 4F) / 360F + 2.5D) & 3;
 		world.setBlockMetadataWithNotify(i, j, k, l, 3);
+		world.scheduleBlockUpdate(i, j, k, blockID, 5);
 	}
 
 	@Override
@@ -178,6 +132,33 @@ public class BlockConveyorBelt extends Block {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon(this.getTextureName() + "Front");
+		this.topDownTextures = new Icon[5];
+		this.topTextures = new Icon[5];
+		for (int i = 0; i < 5; i++) {
+			this.topDownTextures[i] = par1IconRegister.registerIcon(this.getTextureName() + "Top" + i);
+			this.topTextures[i] = par1IconRegister.registerIcon(this.getTextureName() + "TopDown" + i);
+		}
+	}
+
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
+
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	}
+
+	@Override
+	public void setBlockBoundsForItemRender() {
+		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	}
+
+	@Override
 	public void updateTick(World world, int i, int j, int k, Random random) {
 		world.scheduleBlockUpdate(i, j, k, blockID, 5);
 		if (world.isRemote && random.nextInt(5) == 0 && Wecraft.convertyTexture == 1) {
@@ -188,5 +169,25 @@ public class BlockConveyorBelt extends Block {
 			world.markBlockForRenderUpdate(i, j, k);
 			return;
 		}
+	}
+
+	private Icon getTexture1(int j) {
+		if (j > 4) {
+			j -= 4;
+		}
+		if (j < 0) {
+			j += 4;
+		}
+		if (j < 5) {
+			return topDownTextures[j];
+		}
+		return topDownTextures[5];
+	}
+
+	private Icon getTexture2(int j) {
+		if (j < 5) {
+			return topTextures[j];
+		}
+		return topTextures[0];
 	}
 }
