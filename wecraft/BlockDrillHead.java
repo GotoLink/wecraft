@@ -17,15 +17,21 @@ public class BlockDrillHead extends Block {
 	}
 
 	public void destroyBelow(World world, int i, int j, int k) {
-		if (world.getBlockId(i, j + 1, k) == 0 || world.getBlockId(i, 4, k) == this.blockID) {
-			int t = 4;
-			while (t < 256) {
-				if (world.getBlockId(i, t, k) == blockID) {
-					world.setBlockToAir(i, t, k);
-				}
-				t++;
-			}
+		int upID = world.getBlockId(i, j + 1, k);
+		if (upID != blockID && upID != Wecraft.drill.blockID) {
+			world.setBlockToAir(i, j, k);
 		}
+	}
+
+	public void destroyUp(World world, int i, int j, int k) {
+		int upId = world.getBlockId(i, j + 1, k);
+		if (upId == blockID) {
+			world.setBlockMetadataWithNotify(i, j + 1, k, 2, 2);
+			world.scheduleBlockUpdate(i, j + 1, k, this.blockID, this.tickRate(world));
+		} else if (upId == Wecraft.drill.blockID) {
+			world.setBlockMetadataWithNotify(i, j + 1, k, 0, 2);
+		}
+		world.setBlockToAir(i, j, k);
 	}
 
 	@Override
@@ -47,9 +53,10 @@ public class BlockDrillHead extends Block {
 	@Override
 	public void onNeighborBlockChange(World world, int i, int j, int k, int l) {
 		int m = world.getBlockMetadata(i, j, k);
-		if (m != 0) {
-			destroyBelow(world, i, j, k);
+		if (m == 2) {
+			destroyUp(world, i, j, k);
 		}
+		destroyBelow(world, i, j, k);
 	}
 
 	@Override
@@ -60,7 +67,7 @@ public class BlockDrillHead extends Block {
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
 		int l = iblockaccess.getBlockMetadata(i, j, k);
-		if (l == 0) {
+		if (l != 1) {
 			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		} else {
 			setBlockBounds(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F);
@@ -69,9 +76,6 @@ public class BlockDrillHead extends Block {
 
 	@Override
 	public void updateTick(World world, int i, int j, int k, Random random) {
-		int l = world.getBlockMetadata(i, j, k);
-		if (l != 0) {
-			destroyBelow(world, i, j, k);
-		}
+		onNeighborBlockChange(world, i, j, k, blockID);
 	}
 }
