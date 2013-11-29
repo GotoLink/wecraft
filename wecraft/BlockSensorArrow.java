@@ -23,9 +23,10 @@ public class BlockSensorArrow extends Block {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
 		AxisAlignedBB box = super.getCollisionBoundingBoxFromPool(world, i, j, k);
-		List<Entity> list = world.getEntitiesWithinAABB(Entity.class, box);
-		for (Entity arrow : list) {
-			if (arrow instanceof EntityArrow) {
+		List<?> list = world.getEntitiesWithinAABB(Entity.class, box);
+		for (Object obj : list) {
+			if (obj instanceof EntityArrow) {
+				EntityArrow arrow = (EntityArrow) obj;
 				if (world.getBlockMetadata(i, j, k) != 1) {
 					if (!world.isRemote) {
 						EntityItem entityitem = new EntityItem(world, (float) arrow.posX, (float) arrow.posY, (float) arrow.posZ, new ItemStack(Item.arrow));
