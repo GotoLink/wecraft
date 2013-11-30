@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -25,7 +24,41 @@ public class Wecraft {
 	public static int waterTankRadiusWide, waterTankRadiusDepth;
 
 	@EventHandler
-	public void load(FMLInitializationEvent event) {
+	public void preload(FMLPreInitializationEvent event) {
+		CreativeTabs tab = new CreativeTabs("W3(r4ft") {
+			@Override
+			@SideOnly(Side.CLIENT)
+			public Item getTabIconItem() {
+				return drillHeadItem;
+			}
+		};
+		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
+		cfg.load();
+		// saverItem = new BlockWtSaverItem(cfg.get("ItemSaverID", 3170), 2).setHardness(0.5F).setResistance(1.0F).setBlockName("Item Saver").setStepSound(Block.soundSandFootstep);
+		conveyorBelt = new BlockConveyorBelt(cfg.getBlock("ConveyorBeltID", 3169).getInt()).setHardness(0.5F).setResistance(3.0F).setTextureName("wecraft:ConvertyBelt/ConveyorBelt_")
+				.setUnlocalizedName("Conveyor Belt").setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
+		sensorArrow = new BlockSensorArrow(cfg.getBlock("ArrowSensorID", 3161).getInt()).setHardness(0.3F).setResistance(2.0F).setTextureName("wecraft:SensorArrow").setUnlocalizedName("Arrow Sensor")
+				.setStepSound(Block.soundClothFootstep).setCreativeTab(tab);
+		drill = new BlockDrill(cfg.getBlock("DrillID", 3166).getInt()).setHardness(1.0F).setResistance(2000.0F).setTextureName("wecraft:Drill").setUnlocalizedName("Drill")
+				.setStepSound(Block.soundWoodFootstep).setCreativeTab(tab);
+		sensorFire = new BlockSensorFire(cfg.getBlock("FireSensorID", 3164).getInt()).setHardness(4.0F).setResistance(7.0F).setTextureName("wecraft:SensorFire").setUnlocalizedName("Fire Sensor")
+				.setStepSound(Block.soundStoneFootstep).setCreativeTab(tab);
+		gitter = new BlockGitter(cfg.getBlock("MetalMeshID", 3168).getInt()).setHardness(0.4F).setResistance(1.0F).setTextureName("wecraft:gitter").setUnlocalizedName("Metal Mesh")
+				.setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
+		drillHead = new BlockDrillHead(cfg.getBlock("DrillHeadID", 3167).getInt()).setHardness(9.0F).setResistance(9.0F).setTextureName("iron_block").setUnlocalizedName("Drill-Head")
+				.setStepSound(Block.soundStoneFootstep);
+		sensorTime = new BlockSensorTime(cfg.getBlock("TimeSensorID", 3163).getInt()).setHardness(2.0F).setResistance(5.0F).setTextureName("wecraft:Sensor").setUnlocalizedName("Time Sensor")
+				.setStepSound(Block.soundWoodFootstep).setCreativeTab(tab);
+		grill = new BlockGrill(cfg.getBlock("BurnerID", 3165).getInt()).setHardness(1.0F).setResistance(5.0F).setTextureName("wecraft:grill").setUnlocalizedName("Burner")
+				.setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
+		waterMaker = new BlockWaterMaker(cfg.getBlock("WaterTankID", 3162).getInt()).setHardness(3.0F).setResistance(7.0F).setTextureName("wecraft:WaterMaker").setUnlocalizedName("Water Tank")
+				.setStepSound(Block.soundStoneFootstep).setCreativeTab(tab);
+		drillHeadItem = new Item(cfg.getItem("DrillHeadItemID", 4100).getInt()).setTextureName("wecraft:DrillHead").setUnlocalizedName("Drill Head").setMaxStackSize(1).setCreativeTab(tab);
+		metalStick = new Item(cfg.getItem("MetalStickID", 4101).getInt()).setTextureName("wecraft:MetalStick").setUnlocalizedName("Metal Stick").setMaxStackSize(64).setCreativeTab(tab);
+		waterTankRadiusWide = cfg.get("general", "WaterTankRadiusWide", 5).getInt();
+		waterTankRadiusDepth = cfg.get("general", "WaterTankRadiusDepth", 5).getInt();
+		convertyTexture = cfg.get("general", "ConvertyBeltAnimation", 1).getInt();
+		cfg.save();
 		/*
 		 * //Itemsaver GameRegistry.registerBlock(saverItem, "ItemSaver");
 		 * LanguageRegistry.addName(saverItem, "Item Saver");
@@ -73,43 +106,5 @@ public class Wecraft {
 		//Metal Stick
 		GameRegistry.registerItem(metalStick, "MetalStick");
 		GameRegistry.addRecipe(new ItemStack(metalStick, 8), "XXX", "X#X", "XXX", Character.valueOf('X'), Item.stick, Character.valueOf('#'), Item.ingotIron);
-	}
-
-	@EventHandler
-	public void preload(FMLPreInitializationEvent event) {
-		CreativeTabs tab = new CreativeTabs("W3(r4ft") {
-			@Override
-			@SideOnly(Side.CLIENT)
-			public Item getTabIconItem() {
-				return drillHeadItem;
-			}
-		};
-		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
-		cfg.load();
-		// saverItem = new BlockWtSaverItem(cfg.get("ItemSaverID", 3170), 2).setHardness(0.5F).setResistance(1.0F).setBlockName("Item Saver").setStepSound(Block.soundSandFootstep);
-		conveyorBelt = new BlockConveyorBelt(cfg.getBlock("ConveyorBeltID", 3169).getInt()).setHardness(0.5F).setResistance(3.0F).setTextureName("wecraft:ConvertyBelt/ConveyorBelt_")
-				.setUnlocalizedName("Conveyor Belt").setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
-		sensorArrow = new BlockSensorArrow(cfg.getBlock("ArrowSensorID", 3161).getInt()).setHardness(0.3F).setResistance(2.0F).setTextureName("wecraft:SensorArrow").setUnlocalizedName("Arrow Sensor")
-				.setStepSound(Block.soundClothFootstep).setCreativeTab(tab);
-		drill = new BlockDrill(cfg.getBlock("DrillID", 3166).getInt()).setHardness(1.0F).setResistance(2000.0F).setTextureName("wecraft:Drill").setUnlocalizedName("Drill")
-				.setStepSound(Block.soundWoodFootstep).setCreativeTab(tab);
-		sensorFire = new BlockSensorFire(cfg.getBlock("FireSensorID", 3164).getInt()).setHardness(4.0F).setResistance(7.0F).setTextureName("wecraft:SensorFire").setUnlocalizedName("Fire Sensor")
-				.setStepSound(Block.soundStoneFootstep).setCreativeTab(tab);
-		gitter = new BlockGitter(cfg.getBlock("MetalMeshID", 3168).getInt()).setHardness(0.4F).setResistance(1.0F).setTextureName("wecraft:gitter").setUnlocalizedName("Metal Mesh")
-				.setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
-		drillHead = new BlockDrillHead(cfg.getBlock("DrillHeadID", 3167).getInt()).setHardness(9.0F).setResistance(9.0F).setTextureName("iron_block").setUnlocalizedName("Drill-Head")
-				.setStepSound(Block.soundStoneFootstep);
-		sensorTime = new BlockSensorTime(cfg.getBlock("TimeSensorID", 3163).getInt()).setHardness(2.0F).setResistance(5.0F).setTextureName("wecraft:Sensor").setUnlocalizedName("Time Sensor")
-				.setStepSound(Block.soundWoodFootstep).setCreativeTab(tab);
-		grill = new BlockGrill(cfg.getBlock("BurnerID", 3165).getInt()).setHardness(1.0F).setResistance(5.0F).setTextureName("wecraft:grill").setUnlocalizedName("Burner")
-				.setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
-		waterMaker = new BlockWaterMaker(cfg.getBlock("WaterTankID", 3162).getInt()).setHardness(3.0F).setResistance(7.0F).setTextureName("wecraft:WaterMaker").setUnlocalizedName("Water Tank")
-				.setStepSound(Block.soundStoneFootstep).setCreativeTab(tab);
-		drillHeadItem = new Item(cfg.getItem("DrillHeadItemID", 4100).getInt()).setTextureName("wecraft:DrillHead").setUnlocalizedName("Drill Head").setMaxStackSize(1).setCreativeTab(tab);
-		metalStick = new Item(cfg.getItem("MetalStickID", 4101).getInt()).setTextureName("wecraft:MetalStick").setUnlocalizedName("Metal Stick").setMaxStackSize(64).setCreativeTab(tab);
-		waterTankRadiusWide = cfg.get("general", "WaterTankRadiusWide", 5).getInt();
-		waterTankRadiusDepth = cfg.get("general", "WaterTankRadiusDepth", 5).getInt();
-		convertyTexture = cfg.get("general", "ConvertyBeltAnimation", 1).getInt();
-		cfg.save();
 	}
 }
