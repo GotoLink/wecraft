@@ -15,15 +15,21 @@ public class BlockGitter extends Block {
 		super(i, Material.iron);
 	}
 
+	@Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
+		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, (float) j + 1 - 0.025F, k + 1);
+	}
+
+	//With this you can see "the other side" of the block
+	@Override
+	public int getRenderBlockPass() {
+		return 1;
+	}
+
 	//This drops the block in 4 metal sticks
 	@Override
 	public int idDropped(int i, Random random, int j) {
 		return Wecraft.metalStick.itemID;
-	}
-
-	@Override
-	public int quantityDropped(Random random) {
-		return 4;
 	}
 
 	//This makes the block transparent
@@ -33,19 +39,40 @@ public class BlockGitter extends Block {
 	}
 
 	@Override
+	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity) {
+		if (entity instanceof EntityItem) {
+			int y = 0;
+			while (world.isAirBlock(i, j - y - 1, k) || world.getBlockId(i, j - y - 1, k) == Wecraft.gitter.blockID) {
+				y += 1;
+			}
+			while (!world.isAirBlock(i, j - y - 1, k) && !world.isAirBlock(i + 1, j - y, k) && !world.isAirBlock(i - 1, j - y, k) && !world.isAirBlock(i, j - y, k + 1)
+					&& !world.isAirBlock(i, j - y, k - 1)) {
+				y -= 1;
+			}
+			if (y > 0) {
+				if (world.isAirBlock(i, j - y, k)) {
+					entity.setPosition(entity.posX, entity.posY - 1.0D * y, entity.posZ);
+				} else if (world.isAirBlock(i + 1, j - (y - 1), k)) {
+					entity.setPosition(entity.posX + 1, entity.posY - 1.0D * (y - 1), entity.posZ);
+				} else if (world.isAirBlock(i - 1, j - (y - 1), k)) {
+					entity.setPosition(entity.posX - 1, entity.posY - 1.0D * (y - 1), entity.posZ);
+				} else if (world.isAirBlock(i, j - (y - 1), k + 1)) {
+					entity.setPosition(entity.posX, entity.posY - 1.0D * (y - 1), entity.posZ + 1);
+				} else if (world.isAirBlock(i, j - (y - 1), k - 1)) {
+					entity.setPosition(entity.posX, entity.posY - 1.0D * (y - 1), entity.posZ - 1);
+				}
+			}
+		}
+	}
+
+	@Override
+	public int quantityDropped(Random random) {
+		return 4;
+	}
+
+	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
-	}
-
-	//With this you can see "the other side" of the block
-	@Override
-	public int getRenderBlockPass() {
-		return 1;
-	}
-
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
-		return true;
 	}
 
 	@Override
@@ -60,14 +87,7 @@ public class BlockGitter extends Block {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
-		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, (float) j + 1 - 0.025F, k + 1);
-	}
-
-	@Override
-	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity) {
-		if (entity instanceof EntityItem && (world.getBlockId(i, j - 1, k) == 0 || world.getBlockId(i, j - 1, k) == Wecraft.gitter.blockID)) {
-			entity.setPosition(entity.posX, entity.posY - 1.3D, entity.posZ);
-		}
+	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
+		return true;
 	}
 }
