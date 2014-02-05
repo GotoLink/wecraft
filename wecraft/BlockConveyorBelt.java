@@ -1,17 +1,14 @@
 package wecraft;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,86 +16,55 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockConveyorBelt extends Block {
-	public int timePeriod = 0;
-	private Icon[] topDownTextures;
-	private Icon[] topTextures;
+	private IIcon topDownTexture;
+	private IIcon topTexture;
 
-	public BlockConveyorBelt(int i) {
-		super(i, Material.iron);
-		setTickRandomly(true);
+	public BlockConveyorBelt() {
+		super(Material.field_151573_f);
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, int i, int j, int k) {
-		return world.isBlockNormalCube(i, j - 1, k);
+	public boolean func_149742_c(World world, int i, int j, int k) {
+		return world.func_147439_a(i, j - 1, k).isNormalCube(world, i, j-1, k);
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
-		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 0.52F, k + 1);
+	public AxisAlignedBB func_149668_a(World world, int i, int j, int k) {
+		return AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, j + 0.52F, k + 1);
 	}
 
 	@Override
-	public Icon getIcon(int i, int j) {
-		int timePeriod2 = 0;
-		if (timePeriod == 0) {
-			timePeriod2 = 0;
-		}
-		if (timePeriod == 1) {
-			timePeriod2 = 4;
-		}
-		if (timePeriod == 2) {
-			timePeriod2 = 3;
-		}
-		if (timePeriod == 3) {
-			timePeriod2 = 2;
-		}
-		if (timePeriod == 4) {
-			timePeriod2 = 1;
-		}
+	public IIcon func_149691_a(int i, int j) {
 		if (((j == 0) || (j == 2)) && (i == 2 || i == 3)) {
-			if ((j == 0 && i == 2) || (j == 2 && i == 3)) {
-				return getTexture1(timePeriod2 - 2);
-			}
-			return getTexture1(timePeriod + 2);
+			return getTexture1();
 		}
 		if (((j == 0) || (j == 2)) && (i == 0 || i == 1)) {
-			if (j == 0) {
-				return getTexture1(timePeriod);
-			}
-			return getTexture1(timePeriod2);
+			return getTexture1();
 		}
 		if (((j == 1) || (j == 3)) && (i == 4 || i == 5)) {
-			if ((j == 1 && i == 4) || (j == 3 && i == 5)) {
-				return getTexture1(timePeriod + 2);
-			}
-			return getTexture1(timePeriod2 - 2);
+			return getTexture1();
 		}
 		if (((j == 1) || (j == 3)) && (i == 0 || i == 1)) {
-			if (j == 1) {
-				return getTexture2(timePeriod2);
-			}
-			return getTexture2(timePeriod);
+			return getTexture2();
 		}
-		return blockIcon;
+		return field_149761_L;
 	}
 
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean func_149662_c() {
 		return false;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
+	public void func_149689_a(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
 		int l = MathHelper.floor_double((entityliving.rotationYaw * 4F) / 360F + 2.5D) & 3;
 		world.setBlockMetadataWithNotify(i, j, k, l, 3);
-		world.scheduleBlockUpdate(i, j, k, blockID, 5);
 	}
 
 	@Override
-	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity) {
+	public void func_149670_a(World world, int i, int j, int k, Entity entity) {
 		int l = world.getBlockMetadata(i, j, k);
-		if (entity instanceof EntityLiving) {
+		if (entity instanceof EntityLivingBase) {
 			if (l == 0) {
 				entity.motionZ = 0.1D;
 			}
@@ -112,7 +78,7 @@ public class BlockConveyorBelt extends Block {
 				entity.motionX = 0.1D;
 			}
 		}
-		if (entity instanceof EntityItem) {
+		else if (entity instanceof EntityItem) {
 			entity.motionY = 0D;
 			entity.motionX = 0D;
 			entity.motionZ = 0D;
@@ -133,61 +99,32 @@ public class BlockConveyorBelt extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
-		this.blockIcon = par1IconRegister.registerIcon(this.getTextureName() + "Front");
-		this.topDownTextures = new Icon[5];
-		this.topTextures = new Icon[5];
-		for (int i = 0; i < 5; i++) {
-			this.topDownTextures[i] = par1IconRegister.registerIcon(this.getTextureName() + "Top" + i);
-			this.topTextures[i] = par1IconRegister.registerIcon(this.getTextureName() + "TopDown" + i);
-		}
+	public void func_149651_a(IIconRegister par1IconRegister) {
+		this.field_149761_L = par1IconRegister.registerIcon(this.func_149641_N() + "Front");
+        this.topDownTexture = par1IconRegister.registerIcon(this.func_149641_N() + "Top");
+        this.topTexture = par1IconRegister.registerIcon(this.func_149641_N() + "TopDown");
 	}
 
 	@Override
-	public boolean renderAsNormalBlock() {
+	public boolean func_149686_d() {
 		return false;
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	public void func_149719_a(IBlockAccess iblockaccess, int i, int j, int k) {
+        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
 	}
 
 	@Override
-	public void setBlockBoundsForItemRender() {
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	public void func_149683_g() {
+        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
 	}
 
-	@Override
-	public void updateTick(World world, int i, int j, int k, Random random) {
-		world.scheduleBlockUpdate(i, j, k, blockID, 5);
-		if (world.isRemote && random.nextInt(5) == 0 && Wecraft.convertyTexture == 1) {
-			timePeriod = timePeriod + 1;
-			if (timePeriod == 5) {
-				timePeriod = 0;
-			}
-			world.markBlockForRenderUpdate(i, j, k);
-			return;
-		}
+	private IIcon getTexture1() {
+		return topDownTexture;
 	}
 
-	private Icon getTexture1(int j) {
-		if (j > 4) {
-			j -= 4;
-		}
-		if (j < 0) {
-			j += 4;
-		}
-		if (j < 5) {
-			return topDownTextures[j];
-		}
-		return topDownTextures[5];
-	}
-
-	private Icon getTexture2(int j) {
-		if (j < 5) {
-			return topTextures[j];
-		}
-		return topTextures[0];
+	private IIcon getTexture2() {
+		return topTexture;
 	}
 }

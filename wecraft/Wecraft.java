@@ -2,19 +2,19 @@ package wecraft;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = "wecraft", name = "W3(r4ft", version = "0.1")
-@NetworkMod(clientSideRequired = true)
+@Mod(modid = "wecraft", name = "W3(r4ft", version = "0.2")
 public class Wecraft {
 	public static int convertyTexture;
 	//public static final Block saverItem;
@@ -33,32 +33,32 @@ public class Wecraft {
 			}
 		};
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
-		cfg.load();
 		// saverItem = new BlockWtSaverItem(cfg.get("ItemSaverID", 3170), 2).setHardness(0.5F).setResistance(1.0F).setBlockName("Item Saver").setStepSound(Block.soundSandFootstep);
-		conveyorBelt = new BlockConveyorBelt(cfg.getBlock("ConveyorBeltID", 3169).getInt()).setHardness(0.5F).setResistance(3.0F).setTextureName("wecraft:ConvertyBelt/ConveyorBelt_")
-				.setUnlocalizedName("Conveyor Belt").setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
-		sensorArrow = new BlockSensorArrow(cfg.getBlock("ArrowSensorID", 3161).getInt()).setHardness(0.3F).setResistance(2.0F).setTextureName("wecraft:SensorArrow").setUnlocalizedName("Arrow Sensor")
-				.setStepSound(Block.soundClothFootstep).setCreativeTab(tab);
-		drill = new BlockDrill(cfg.getBlock("DrillID", 3166).getInt()).setHardness(1.0F).setResistance(2000.0F).setTextureName("wecraft:Drill").setUnlocalizedName("Drill")
-				.setStepSound(Block.soundWoodFootstep).setCreativeTab(tab);
-		sensorFire = new BlockSensorFire(cfg.getBlock("FireSensorID", 3164).getInt()).setHardness(4.0F).setResistance(7.0F).setTextureName("wecraft:SensorFire").setUnlocalizedName("Fire Sensor")
-				.setStepSound(Block.soundStoneFootstep).setCreativeTab(tab);
-		gitter = new BlockGitter(cfg.getBlock("MetalMeshID", 3168).getInt()).setHardness(0.4F).setResistance(1.0F).setTextureName("wecraft:gitter").setUnlocalizedName("Metal Mesh")
-				.setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
-		drillHead = new BlockDrillHead(cfg.getBlock("DrillHeadID", 3167).getInt()).setHardness(9.0F).setResistance(9.0F).setTextureName("iron_block").setUnlocalizedName("Drill-Head")
-				.setStepSound(Block.soundStoneFootstep);
-		sensorTime = new BlockSensorTime(cfg.getBlock("TimeSensorID", 3163).getInt()).setHardness(2.0F).setResistance(5.0F).setTextureName("wecraft:Sensor").setUnlocalizedName("Time Sensor")
-				.setStepSound(Block.soundWoodFootstep).setCreativeTab(tab);
-		grill = new BlockGrill(cfg.getBlock("BurnerID", 3165).getInt()).setHardness(1.0F).setResistance(5.0F).setTextureName("wecraft:grill").setUnlocalizedName("Burner")
-				.setStepSound(Block.soundMetalFootstep).setCreativeTab(tab);
-		waterMaker = new BlockWaterMaker(cfg.getBlock("WaterTankID", 3162).getInt()).setHardness(3.0F).setResistance(7.0F).setTextureName("wecraft:WaterMaker").setUnlocalizedName("Water Tank")
-				.setStepSound(Block.soundStoneFootstep).setCreativeTab(tab);
-		drillHeadItem = new Item(cfg.getItem("DrillHeadItemID", 4100).getInt()).setTextureName("wecraft:DrillHead").setUnlocalizedName("Drill Head").setMaxStackSize(1).setCreativeTab(tab);
-		metalStick = new Item(cfg.getItem("MetalStickID", 4101).getInt()).setTextureName("wecraft:MetalStick").setUnlocalizedName("Metal Stick").setMaxStackSize(64).setCreativeTab(tab);
+		conveyorBelt = new BlockConveyorBelt().func_149711_c(0.5F).func_149711_c(3.0F).func_149658_d("wecraft:ConvertyBelt/ConveyorBelt_")
+				.func_149663_c("Conveyor Belt").func_149672_a(Block.field_149777_j).func_149647_a(tab);
+		sensorArrow = new BlockSensorArrow().func_149711_c(0.3F).func_149711_c(2.0F).func_149658_d("wecraft:SensorArrow").func_149663_c("Arrow Sensor")
+				.func_149672_a(Block.field_149775_l).func_149647_a(tab);
+		drill = new BlockDrill().func_149711_c(1.0F).func_149711_c(2000.0F).func_149658_d("wecraft:Drill").func_149663_c("Drill")
+				.func_149672_a(Block.field_149766_f).func_149647_a(tab);
+		sensorFire = new BlockSensorFire().func_149711_c(4.0F).func_149711_c(7.0F).func_149658_d("wecraft:SensorFire").func_149663_c("Fire Sensor")
+				.func_149672_a(Block.field_149780_i).func_149647_a(tab);
+		gitter = new BlockGitter().func_149711_c(0.4F).func_149711_c(1.0F).func_149658_d("wecraft:gitter").func_149663_c("Metal Mesh")
+				.func_149672_a(Block.field_149777_j).func_149647_a(tab);
+		drillHead = new BlockDrillHead().func_149711_c(9.0F).func_149711_c(9.0F).func_149658_d("iron_block").func_149663_c("Drill-Head")
+				.func_149672_a(Block.field_149780_i);
+		sensorTime = new BlockSensorTime().func_149711_c(2.0F).func_149711_c(5.0F).func_149658_d("wecraft:Sensor").func_149663_c("Time Sensor")
+				.func_149672_a(Block.field_149766_f).func_149647_a(tab);
+		grill = new BlockGrill().func_149711_c(1.0F).func_149711_c(5.0F).func_149658_d("wecraft:grill").func_149663_c("Burner")
+				.func_149672_a(Block.field_149777_j).func_149647_a(tab);
+		waterMaker = new BlockWaterMaker().func_149711_c(3.0F).func_149711_c(7.0F).func_149658_d("wecraft:WaterMaker").func_149663_c("Water Tank")
+				.func_149672_a(Block.field_149780_i).func_149647_a(tab);
+		drillHeadItem = new Item().setTextureName("wecraft:DrillHead").setUnlocalizedName("Drill Head").setMaxStackSize(1).setCreativeTab(tab);
+		metalStick = new Item().setTextureName("wecraft:MetalStick").setUnlocalizedName("Metal Stick").setMaxStackSize(64).setCreativeTab(tab);
 		waterTankRadiusWide = cfg.get("general", "WaterTankRadiusWide", 5).getInt();
 		waterTankRadiusDepth = cfg.get("general", "WaterTankRadiusDepth", 5).getInt();
 		convertyTexture = cfg.get("general", "ConvertyBeltAnimation", 1).getInt();
-		cfg.save();
+        if(cfg.hasChanged())
+		    cfg.save();
 		/*
 		 * //Itemsaver GameRegistry.registerBlock(saverItem, "ItemSaver");
 		 * LanguageRegistry.addName(saverItem, "Item Saver");
@@ -68,21 +68,21 @@ public class Wecraft {
 		 */
 		//ConvertyBelt
 		GameRegistry.registerBlock(conveyorBelt, "ConveyorBelt");
-		GameRegistry.addRecipe(new ItemStack(conveyorBelt, 6), "XXX", "S#S", "XXX", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Item.redstone, Character.valueOf('S'),
-				Block.cobblestone);
+		GameRegistry.addRecipe(new ItemStack(conveyorBelt, 6), "XXX", "S#S", "XXX", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.redstone, Character.valueOf('S'),
+				Blocks.cobblestone);
 		//Arrow Sensor
 		GameRegistry.registerBlock(sensorArrow, "ArrowTarget");
-		GameRegistry.addRecipe(new ItemStack(sensorArrow), "XXX", "S#S", "XXX", Character.valueOf('X'), Block.cloth, Character.valueOf('S'), Wecraft.gitter, Character.valueOf('#'), Item.arrow);
+		GameRegistry.addRecipe(new ItemStack(sensorArrow), "XXX", "S#S", "XXX", Character.valueOf('X'), Blocks.wool, Character.valueOf('S'), Wecraft.gitter, Character.valueOf('#'), Items.arrow);
 		//Drill
 		GameRegistry.registerBlock(drill, "Drill");
-		GameRegistry.addRecipe(new ItemStack(drill), "X X", "S#S", "XDX", Character.valueOf('X'), Block.planks, Character.valueOf('S'), Item.redstone, Character.valueOf('#'), Item.diamond,
+		GameRegistry.addRecipe(new ItemStack(drill), "X X", "S#S", "XDX", Character.valueOf('X'), Blocks.planks, Character.valueOf('S'), Items.redstone, Character.valueOf('#'), Items.diamond,
 				Character.valueOf('D'), Wecraft.drillHeadItem);
 		//Fire Sensor
 		GameRegistry.registerBlock(sensorFire, "FireAlarm");
-		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Item.redstone, Character.valueOf('N'),
-				Block.netherrack, Character.valueOf('S'), Block.stone);
-		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Item.redstone, Character.valueOf('N'),
-				Item.flintAndSteel, Character.valueOf('S'), Block.stone);
+		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.redstone, Character.valueOf('N'),
+				Blocks.netherrack, Character.valueOf('S'), Blocks.stone);
+		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.redstone, Character.valueOf('N'),
+				Items.flint_and_steel, Character.valueOf('S'), Blocks.stone);
 		//Gitter
 		GameRegistry.registerBlock(gitter, "MetalMesh");
 		GameRegistry.addRecipe(new ItemStack(gitter), "XX", "XX", Character.valueOf('X'), Wecraft.metalStick);
@@ -90,21 +90,21 @@ public class Wecraft {
 		GameRegistry.registerBlock(drillHead, "DrillHead");
 		//Time Sensor
 		GameRegistry.registerBlock(sensorTime, "TimeSensor");
-		GameRegistry.addRecipe(new ItemStack(sensorTime), "XCX", "W#W", "WWW", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('C'), Item.pocketSundial, Character.valueOf('#'),
-				Item.redstone, Character.valueOf('W'), Block.planks);
+		GameRegistry.addRecipe(new ItemStack(sensorTime), "XCX", "W#W", "WWW", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('C'), Items.clock, Character.valueOf('#'),
+				Items.redstone, Character.valueOf('W'), Blocks.planks);
 		//Burner
 		GameRegistry.registerBlock(grill, "Burner");
-		GameRegistry.addRecipe(new ItemStack(grill), "XXX", "S#S", "SSS", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('S'), Block.cobblestone, Character.valueOf('#'),
-				Block.furnaceIdle);
+		GameRegistry.addRecipe(new ItemStack(grill), "XXX", "S#S", "SSS", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('S'), Blocks.cobblestone, Character.valueOf('#'),
+				Blocks.furnace);
 		//Drill Head Item
 		GameRegistry.registerItem(drillHeadItem, "DrillHeadItem");
-		GameRegistry.addRecipe(new ItemStack(drillHeadItem), " X ", "###", " # ", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Item.ingotIron);
+		GameRegistry.addRecipe(new ItemStack(drillHeadItem), " X ", "###", " # ", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.iron_ingot);
 		//Water Tank
 		GameRegistry.registerBlock(waterMaker, "WaterTank");
-		GameRegistry.addRecipe(new ItemStack(waterMaker), "X X", "S#S", "SSS", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('S'), Block.stone, Character.valueOf('#'),
-				Item.bucketEmpty);
+		GameRegistry.addRecipe(new ItemStack(waterMaker), "X X", "S#S", "SSS", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('S'), Blocks.stone, Character.valueOf('#'),
+				Items.bucket);
 		//Metal Stick
 		GameRegistry.registerItem(metalStick, "MetalStick");
-		GameRegistry.addRecipe(new ItemStack(metalStick, 8), "XXX", "X#X", "XXX", Character.valueOf('X'), Item.stick, Character.valueOf('#'), Item.ingotIron);
+		GameRegistry.addRecipe(new ItemStack(metalStick, 8), "XXX", "X#X", "XXX", Character.valueOf('X'), Items.stick, Character.valueOf('#'), Items.iron_ingot);
 	}
 }

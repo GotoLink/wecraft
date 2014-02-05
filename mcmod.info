@@ -1,0 +1,17 @@
+[
+{
+  "modid": "wecraft",
+  "name": "w3(r4ft Mod",
+  "description": "",
+  "version": $version,
+  "credits": "",
+  "logoFile": "",
+  "mcversion": $mcversion,
+  "url": "http://www.minecraftforum.net/topic/397582-",
+  "updateUrl": "",
+  "authors": ["w3(r4ft","GotoLink"],
+  "parent":"",
+  "screenshots": [],
+  "dependencies": []
+}
+]
