@@ -15,72 +15,72 @@ import net.minecraft.world.World;
 
 public class BlockGrill extends Block {
 	protected BlockGrill() {
-		super(Material.field_151573_f);
-        func_149675_a(true);
+		super(Material.iron);
+        setTickRandomly(true);
 	}
 
 	@Override
-	public int func_149738_a(World world) {
+	public int tickRate(World world) {
 		return 5;
 	}
 
 	//Different texture for each side
 	@Override
-	public IIcon func_149691_a(int i, int j) {
+	public IIcon getIcon(int i, int j) {
 		if (i == 1) {
-			return field_149761_L;
+			return blockIcon;
 		}
-		return Blocks.furnace.func_149733_h(i);
+		return Blocks.furnace.getBlockTextureFromSide(i);
 	}
 
 	//With a click by the player, it burns.
 	@Override
-	public void func_149699_a(World world, int i, int j, int k, EntityPlayer entityplayer) {
-        func_149727_a(world, i, j, k, entityplayer, 0, 0, 0, 0);
+	public void onBlockClicked(World world, int i, int j, int k, EntityPlayer entityplayer) {
+        onBlockActivated(world, i, j, k, entityplayer, 0, 0, 0, 0);
 	}
 
 	@Override
-	public boolean func_149727_a(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
-		if (world.func_147439_a(i, j + 1, k) == Blocks.air) {
-			world.func_147449_b(i, j + 1, k, Blocks.fire);
+	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+		if (world.getBlock(i, j + 1, k) == Blocks.air) {
+			world.setBlock(i, j + 1, k, Blocks.fire);
 		} else {
-			world.func_147468_f(i, j + 1, k);
+			world.setBlockToAir(i, j + 1, k);
 		}
 		return true;
 	}
 
 	//Check if the block is getting power
 	@Override
-	public void func_149695_a(World world, int i, int j, int k, Block l) {
-		if (l.func_149744_f() && world.isBlockIndirectlyGettingPowered(i, j, k)) {
-			if (world.func_147439_a(i, j + 1, k) == Blocks.air) {
-				world.func_147449_b(i, j + 1, k, Blocks.fire);
-			} else if (world.func_147439_a(i, j + 1, k) == Blocks.fire && l.func_149744_f()) {
-				world.func_147468_f(i, j + 1, k);
+	public void onNeighborBlockChange(World world, int i, int j, int k, Block l) {
+		if (l.canProvidePower() && world.isBlockIndirectlyGettingPowered(i, j, k)) {
+			if (world.getBlock(i, j + 1, k) == Blocks.air) {
+				world.setBlock(i, j + 1, k, Blocks.fire);
+			} else if (world.getBlock(i, j + 1, k) == Blocks.fire) {
+				world.setBlockToAir(i, j + 1, k);
 			}
 		}
-		if (!world.isBlockIndirectlyGettingPowered(i, j, k) && l.func_149744_f()) {
-			if (world.func_147439_a(i, j + 1, k) == Blocks.fire) {
-				world.func_147468_f(i, j + 1, k);
+		if (!world.isBlockIndirectlyGettingPowered(i, j, k) && l.canProvidePower()) {
+			if (world.getBlock(i, j + 1, k) == Blocks.fire) {
+				world.setBlockToAir(i, j + 1, k);
 			}
 		}
 		if (world.isBlockIndirectlyGettingPowered(i, j, k)) {
-			if (world.func_147439_a(i, j + 1, k) == Blocks.air) {
-				world.func_147449_b(i, j + 1, k, Blocks.fire);
+			if (world.getBlock(i, j + 1, k) == Blocks.air) {
+				world.setBlock(i, j + 1, k, Blocks.fire);
 			}
 		}
 	}
 
 	//gravelburner
 	@Override
-	public void func_149674_a(World world, int i, int j, int k, Random random) {
+	public void updateTick(World world, int i, int j, int k, Random random) {
 		//testing powered
 		if (world.isBlockIndirectlyGettingPowered(i, j, k)) {
-			if (world.func_147439_a(i, j + 1, k) == Blocks.air) {
-				world.func_147449_b(i, j + 1, k, Blocks.fire);
+			if (world.getBlock(i, j + 1, k) == Blocks.air) {
+				world.setBlock(i, j + 1, k, Blocks.fire);
 			}
 		}
-		if (world.func_147439_a(i, j + 1, k) == Blocks.gravel) {
+		if (world.getBlock(i, j + 1, k) == Blocks.gravel) {
 			if (!world.isRemote) {
 				if (random.nextInt(2) == 0) {
 					Item i1 = Items.flint;
@@ -89,13 +89,13 @@ public class BlockGrill extends Block {
 					double d1 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
 					double d2 = world.rand.nextFloat() * f + (1.0F - f) * 0.5D;
 					EntityItem entityitem = new EntityItem(world, i + d, j + d1, k + d2, new ItemStack(i1, 1, 0));
-					entityitem.field_145804_b = 10;
+					entityitem.delayBeforeCanPickup = 10;
 					world.spawnEntityInWorld(entityitem);
 				} else {
-					Blocks.gravel.func_149697_b(world, i, j + 1, k, world.getBlockMetadata(i, j + 1, k), 0);
+					Blocks.gravel.dropBlockAsItem(world, i, j + 1, k, world.getBlockMetadata(i, j + 1, k), 0);
 				}
 			}
-			world.func_147468_f(i, j + 1, k);
+			world.setBlockToAir(i, j + 1, k);
 			//fire smoke and sound
 			world.playSoundEffect(i + 0.5F, j + 0.5F, k + 0.5F, "fire.fire", 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F);
 			for (int l = 0; l < 3; l++) {

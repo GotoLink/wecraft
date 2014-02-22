@@ -18,30 +18,30 @@ import net.minecraft.world.World;
 
 public class BlockSaverItem extends Block {
 	public BlockSaverItem() {
-		super(Material.field_151573_f);
+		super(Material.iron);
 	}
 
 	//Different texture for each side
 	@Override
-	public IIcon func_149691_a(int i, int j) {
+	public IIcon getIcon(int i, int j) {
 		if (j == 2 && i == 3) {
-			return Wecraft.gitter.func_149691_a(i, j);
+			return Wecraft.gitter.getIcon(i, j);
 		}
 		if (j == 3 && i == 4) {
-			return Wecraft.gitter.func_149691_a(i, j);
+			return Wecraft.gitter.getIcon(i, j);
 		}
 		if (j == 0 && i == 2) {
-			return Wecraft.gitter.func_149691_a(i, j);
+			return Wecraft.gitter.getIcon(i, j);
 		}
 		if (j == 1 && i == 5) {
-			return Wecraft.gitter.func_149691_a(i, j);
+			return Wecraft.gitter.getIcon(i, j);
 		} else {
-			return Blocks.planks.func_149691_a(i, j);
+			return Blocks.planks.getIcon(i, j);
 		}
 	}
 
 	@Override
-	public void func_149689_a(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
+	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
 		int l = MathHelper.floor_double((entityliving.rotationYaw * 4F) / 360F + 2.5D) & 3;
 		world.setBlockMetadataWithNotify(i, j, k, l, 3);
 	}
@@ -72,34 +72,34 @@ public class BlockSaverItem extends Block {
 	//  return world.getBlockMetadata
 	//This makes the block transparent
 	@Override
-	public boolean func_149662_c() {
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean func_149686_d() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	//With this you can see "the other side" of the block
 	@Override
-	public int func_149701_w() {
+	public int getRenderBlockPass() {
 		return 1;
 	}
 
 	@Override
-	public AxisAlignedBB func_149668_a(World world, int i, int j, int k) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
 		return AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, (float) j + 1 - 0.025F, k + 1);
 	}
 
 	@Override
-	public void func_149724_b(World world, int i, int j, int k, Entity entity) {
+	public void onEntityWalking(World world, int i, int j, int k, Entity entity) {
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer entityplayer = (EntityPlayer) entity;
 			entityplayer.inventory.dropAllItems();
 		}
 		if (entity instanceof EntityItem) {
-			TileEntityChest tileentitychest = (TileEntityChest) world.func_147438_o(i + getCoordX(world, i, j, k), j, k + getCoordZ(world, i, j, k));
+			TileEntityChest tileentitychest = (TileEntityChest) world.getTileEntity(i + getCoordX(world, i, j, k), j, k + getCoordZ(world, i, j, k));
 			if (tileentitychest == null) {
 				return;
 			} else {

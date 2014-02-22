@@ -20,21 +20,21 @@ public class BlockConveyorBelt extends Block {
 	private IIcon topTexture;
 
 	public BlockConveyorBelt() {
-		super(Material.field_151573_f);
+		super(Material.iron);
 	}
 
 	@Override
-	public boolean func_149742_c(World world, int i, int j, int k) {
-		return world.func_147439_a(i, j - 1, k).isNormalCube(world, i, j-1, k);
+	public boolean canPlaceBlockAt(World world, int i, int j, int k) {
+		return world.getBlock(i, j - 1, k).isNormalCube(world, i, j-1, k);
 	}
 
 	@Override
-	public AxisAlignedBB func_149668_a(World world, int i, int j, int k) {
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
 		return AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, j + 0.52F, k + 1);
 	}
 
 	@Override
-	public IIcon func_149691_a(int i, int j) {
+	public IIcon getIcon(int i, int j) {
 		if (((j == 0) || (j == 2)) && (i == 2 || i == 3)) {
 			return getTexture1();
 		}
@@ -47,22 +47,22 @@ public class BlockConveyorBelt extends Block {
 		if (((j == 1) || (j == 3)) && (i == 0 || i == 1)) {
 			return getTexture2();
 		}
-		return field_149761_L;
+		return blockIcon;
 	}
 
 	@Override
-	public boolean func_149662_c() {
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public void func_149689_a(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
+	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack) {
 		int l = MathHelper.floor_double((entityliving.rotationYaw * 4F) / 360F + 2.5D) & 3;
 		world.setBlockMetadataWithNotify(i, j, k, l, 3);
 	}
 
 	@Override
-	public void func_149670_a(World world, int i, int j, int k, Entity entity) {
+	public void onEntityCollidedWithBlock(World world, int i, int j, int k, Entity entity) {
 		int l = world.getBlockMetadata(i, j, k);
 		if (entity instanceof EntityLivingBase) {
 			if (l == 0) {
@@ -99,25 +99,25 @@ public class BlockConveyorBelt extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void func_149651_a(IIconRegister par1IconRegister) {
-		this.field_149761_L = par1IconRegister.registerIcon(this.func_149641_N() + "Front");
-        this.topDownTexture = par1IconRegister.registerIcon(this.func_149641_N() + "Top");
-        this.topTexture = par1IconRegister.registerIcon(this.func_149641_N() + "TopDown");
+	public void registerBlockIcons(IIconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon(this.getTextureName() + "Front");
+        this.topDownTexture = par1IconRegister.registerIcon(this.getTextureName() + "Top");
+        this.topTexture = par1IconRegister.registerIcon(this.getTextureName() + "TopDown");
 	}
 
 	@Override
-	public boolean func_149686_d() {
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public void func_149719_a(IBlockAccess iblockaccess, int i, int j, int k) {
-        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k) {
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
 	}
 
 	@Override
-	public void func_149683_g() {
-        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+	public void setBlockBoundsForItemRender() {
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
 	}
 
 	private IIcon getTexture1() {

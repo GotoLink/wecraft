@@ -34,24 +34,24 @@ public class Wecraft {
 		};
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
 		// saverItem = new BlockWtSaverItem(cfg.get("ItemSaverID", 3170), 2).setHardness(0.5F).setResistance(1.0F).setBlockName("Item Saver").setStepSound(Block.soundSandFootstep);
-		conveyorBelt = new BlockConveyorBelt().func_149711_c(0.5F).func_149711_c(3.0F).func_149658_d("wecraft:ConvertyBelt/ConveyorBelt_")
-				.func_149663_c("Conveyor Belt").func_149672_a(Block.field_149777_j).func_149647_a(tab);
-		sensorArrow = new BlockSensorArrow().func_149711_c(0.3F).func_149711_c(2.0F).func_149658_d("wecraft:SensorArrow").func_149663_c("Arrow Sensor")
-				.func_149672_a(Block.field_149775_l).func_149647_a(tab);
-		drill = new BlockDrill().func_149711_c(1.0F).func_149711_c(2000.0F).func_149658_d("wecraft:Drill").func_149663_c("Drill")
-				.func_149672_a(Block.field_149766_f).func_149647_a(tab);
-		sensorFire = new BlockSensorFire().func_149711_c(4.0F).func_149711_c(7.0F).func_149658_d("wecraft:SensorFire").func_149663_c("Fire Sensor")
-				.func_149672_a(Block.field_149780_i).func_149647_a(tab);
-		gitter = new BlockGitter().func_149711_c(0.4F).func_149711_c(1.0F).func_149658_d("wecraft:gitter").func_149663_c("Metal Mesh")
-				.func_149672_a(Block.field_149777_j).func_149647_a(tab);
-		drillHead = new BlockDrillHead().func_149711_c(9.0F).func_149711_c(9.0F).func_149658_d("iron_block").func_149663_c("Drill-Head")
-				.func_149672_a(Block.field_149780_i);
-		sensorTime = new BlockSensorTime().func_149711_c(2.0F).func_149711_c(5.0F).func_149658_d("wecraft:Sensor").func_149663_c("Time Sensor")
-				.func_149672_a(Block.field_149766_f).func_149647_a(tab);
-		grill = new BlockGrill().func_149711_c(1.0F).func_149711_c(5.0F).func_149658_d("wecraft:grill").func_149663_c("Burner")
-				.func_149672_a(Block.field_149777_j).func_149647_a(tab);
-		waterMaker = new BlockWaterMaker().func_149711_c(3.0F).func_149711_c(7.0F).func_149658_d("wecraft:WaterMaker").func_149663_c("Water Tank")
-				.func_149672_a(Block.field_149780_i).func_149647_a(tab);
+		conveyorBelt = new BlockConveyorBelt().setHardness(0.5F).setHardness(3.0F).setBlockTextureName("wecraft:ConvertyBelt/ConveyorBelt_")
+				.setBlockName("Conveyor Belt").setStepSound(Block.soundTypeMetal).setCreativeTab(tab);
+		sensorArrow = new BlockSensorArrow().setHardness(0.3F).setHardness(2.0F).setBlockTextureName("wecraft:SensorArrow").setBlockName("Arrow Sensor")
+				.setStepSound(Block.soundTypeCloth).setCreativeTab(tab);
+		drill = new BlockDrill().setHardness(1.0F).setHardness(2000.0F).setBlockTextureName("wecraft:Drill").setBlockName("Drill")
+				.setStepSound(Block.soundTypeWood).setCreativeTab(tab);
+		sensorFire = new BlockSensorFire().setHardness(4.0F).setHardness(7.0F).setBlockTextureName("wecraft:SensorFire").setBlockName("Fire Sensor")
+				.setStepSound(Block.soundTypePiston).setCreativeTab(tab);
+		gitter = new BlockGitter().setHardness(0.4F).setHardness(1.0F).setBlockTextureName("wecraft:gitter").setBlockName("Metal Mesh")
+				.setStepSound(Block.soundTypeMetal).setCreativeTab(tab);
+		drillHead = new BlockDrillHead().setHardness(9.0F).setHardness(9.0F).setBlockTextureName("iron_block").setBlockName("Drill-Head")
+				.setStepSound(Block.soundTypePiston);
+		sensorTime = new BlockSensorTime().setHardness(2.0F).setHardness(5.0F).setBlockTextureName("wecraft:Sensor").setBlockName("Time Sensor")
+				.setStepSound(Block.soundTypeWood).setCreativeTab(tab);
+		grill = new BlockGrill().setHardness(1.0F).setHardness(5.0F).setBlockTextureName("wecraft:grill").setBlockName("Burner")
+				.setStepSound(Block.soundTypeMetal).setCreativeTab(tab);
+		waterMaker = new BlockWaterMaker().setHardness(3.0F).setHardness(7.0F).setBlockTextureName("wecraft:WaterMaker").setBlockName("Water Tank")
+				.setStepSound(Block.soundTypePiston).setCreativeTab(tab);
 		drillHeadItem = new Item().setTextureName("wecraft:DrillHead").setUnlocalizedName("Drill Head").setMaxStackSize(1).setCreativeTab(tab);
 		metalStick = new Item().setTextureName("wecraft:MetalStick").setUnlocalizedName("Metal Stick").setMaxStackSize(64).setCreativeTab(tab);
 		waterTankRadiusWide = cfg.get("general", "WaterTankRadiusWide", 5).getInt();
