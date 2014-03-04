@@ -34,6 +34,7 @@ public class BlockConveyorBelt extends Block {
 	}
 
 	@Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int i, int j) {
 		if (((j == 0) || (j == 2)) && (i == 2 || i == 3)) {
 			return getTexture1();

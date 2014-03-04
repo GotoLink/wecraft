@@ -21,8 +21,8 @@ public class BlockWaterMaker extends Block {
 		return 5;
 	}
 
-	//Different texture for each side
 	@Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int i, int j) {
 		if (i == 1 && j == 1) {
 			return waterMakerTexture[0];

@@ -2,6 +2,8 @@ package wecraft;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -24,8 +26,8 @@ public class BlockGrill extends Block {
 		return 5;
 	}
 
-	//Different texture for each side
 	@Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int i, int j) {
 		if (i == 1) {
 			return blockIcon;
@@ -33,7 +35,6 @@ public class BlockGrill extends Block {
 		return Blocks.furnace.getBlockTextureFromSide(i);
 	}
 
-	//With a click by the player, it burns.
 	@Override
 	public void onBlockClicked(World world, int i, int j, int k, EntityPlayer entityplayer) {
         onBlockActivated(world, i, j, k, entityplayer, 0, 0, 0, 0);

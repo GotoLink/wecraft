@@ -2,6 +2,8 @@ package wecraft;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -21,8 +23,8 @@ public class BlockGitter extends Block {
 		return AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, (float) j + 1 - 0.025F, k + 1);
 	}
 
-	//With this you can see "the other side" of the block
 	@Override
+    @SideOnly(Side.CLIENT)
 	public int getRenderBlockPass() {
 		return 1;
 	}
@@ -88,6 +90,7 @@ public class BlockGitter extends Block {
 	}
 
 	@Override
+    @SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l) {
 		return true;
 	}

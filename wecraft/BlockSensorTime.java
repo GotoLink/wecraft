@@ -32,6 +32,7 @@ public class BlockSensorTime extends Block {
 	}
 
 	@Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int i, int j) {
 		if (i == 1) {
 			if (j < 4)

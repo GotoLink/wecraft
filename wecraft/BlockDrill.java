@@ -21,6 +21,7 @@ public class BlockDrill extends Block {
 	}
 
 	@Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int i, int j) {
 		if (i > 1) {
 			if (j == 0) {

@@ -2,6 +2,8 @@ package wecraft;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -21,8 +23,8 @@ public class BlockSaverItem extends Block {
 		super(Material.iron);
 	}
 
-	//Different texture for each side
 	@Override
+    @SideOnly(Side.CLIENT)
 	public IIcon getIcon(int i, int j) {
 		if (j == 2 && i == 3) {
 			return Wecraft.gitter.getIcon(i, j);
@@ -81,8 +83,8 @@ public class BlockSaverItem extends Block {
 		return false;
 	}
 
-	//With this you can see "the other side" of the block
 	@Override
+    @SideOnly(Side.CLIENT)
 	public int getRenderBlockPass() {
 		return 1;
 	}

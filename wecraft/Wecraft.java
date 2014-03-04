@@ -63,48 +63,48 @@ public class Wecraft {
 		 * //Itemsaver GameRegistry.registerBlock(saverItem, "ItemSaver");
 		 * LanguageRegistry.addName(saverItem, "Item Saver");
 		 * GameRegistry.addRecipe(new ItemStack(saverItem, 1), new Object[] {
-		 * "XXX" , "X S", "XXX" , Character.valueOf('X'), Block.planks,
-		 * Character.valueOf('S'), mod_Wecraft.gitter });
+		 * "XXX" , "X S", "XXX" , 'X', Block.planks,
+		 * 'S', mod_Wecraft.gitter });
 		 */
 		//ConvertyBelt
 		GameRegistry.registerBlock(conveyorBelt, "ConveyorBelt");
-		GameRegistry.addRecipe(new ItemStack(conveyorBelt, 6), "XXX", "S#S", "XXX", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.redstone, Character.valueOf('S'),
+		GameRegistry.addRecipe(new ItemStack(conveyorBelt, 6), "XXX", "S#S", "XXX", 'X', Wecraft.metalStick, '#', Items.redstone, 'S',
 				Blocks.cobblestone);
 		//Arrow Sensor
 		GameRegistry.registerBlock(sensorArrow, "ArrowTarget");
-		GameRegistry.addRecipe(new ItemStack(sensorArrow), "XXX", "S#S", "XXX", Character.valueOf('X'), Blocks.wool, Character.valueOf('S'), Wecraft.gitter, Character.valueOf('#'), Items.arrow);
+		GameRegistry.addRecipe(new ItemStack(sensorArrow), "XXX", "S#S", "XXX", 'X', Blocks.wool, 'S', Wecraft.gitter, '#', Items.arrow);
 		//Drill
 		GameRegistry.registerBlock(drill, "Drill");
-		GameRegistry.addRecipe(new ItemStack(drill), "X X", "S#S", "XDX", Character.valueOf('X'), Blocks.planks, Character.valueOf('S'), Items.redstone, Character.valueOf('#'), Items.diamond,
-				Character.valueOf('D'), Wecraft.drillHeadItem);
+		GameRegistry.addRecipe(new ItemStack(drill), "X X", "S#S", "XDX", 'X', Blocks.planks, 'S', Items.redstone, '#', Items.diamond,
+				'D', Wecraft.drillHeadItem);
 		//Fire Sensor
 		GameRegistry.registerBlock(sensorFire, "FireAlarm");
-		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.redstone, Character.valueOf('N'),
-				Blocks.netherrack, Character.valueOf('S'), Blocks.stone);
-		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.redstone, Character.valueOf('N'),
-				Items.flint_and_steel, Character.valueOf('S'), Blocks.stone);
+		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", 'X', Wecraft.metalStick, '#', Items.redstone, 'N',
+				Blocks.netherrack, 'S', Blocks.stone);
+		GameRegistry.addRecipe(new ItemStack(sensorFire), "SSS", "SNS", "X#X", 'X', Wecraft.metalStick, '#', Items.redstone, 'N',
+				Items.flint_and_steel, 'S', Blocks.stone);
 		//Gitter
 		GameRegistry.registerBlock(gitter, "MetalMesh");
-		GameRegistry.addRecipe(new ItemStack(gitter), "XX", "XX", Character.valueOf('X'), Wecraft.metalStick);
+		GameRegistry.addRecipe(new ItemStack(gitter), "XX", "XX", 'X', Wecraft.metalStick);
 		//Drill Head
 		GameRegistry.registerBlock(drillHead, "DrillHead");
 		//Time Sensor
 		GameRegistry.registerBlock(sensorTime, "TimeSensor");
-		GameRegistry.addRecipe(new ItemStack(sensorTime), "XCX", "W#W", "WWW", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('C'), Items.clock, Character.valueOf('#'),
-				Items.redstone, Character.valueOf('W'), Blocks.planks);
+		GameRegistry.addRecipe(new ItemStack(sensorTime), "XCX", "W#W", "WWW", 'X', Wecraft.metalStick, 'C', Items.clock, '#',
+				Items.redstone, 'W', Blocks.planks);
 		//Burner
 		GameRegistry.registerBlock(grill, "Burner");
-		GameRegistry.addRecipe(new ItemStack(grill), "XXX", "S#S", "SSS", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('S'), Blocks.cobblestone, Character.valueOf('#'),
+		GameRegistry.addRecipe(new ItemStack(grill), "XXX", "S#S", "SSS", 'X', Wecraft.metalStick, 'S', Blocks.cobblestone, '#',
 				Blocks.furnace);
 		//Drill Head Item
 		GameRegistry.registerItem(drillHeadItem, "DrillHeadItem");
-		GameRegistry.addRecipe(new ItemStack(drillHeadItem), " X ", "###", " # ", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('#'), Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(drillHeadItem), " X ", "###", " # ", 'X', Wecraft.metalStick, '#', Items.iron_ingot);
 		//Water Tank
 		GameRegistry.registerBlock(waterMaker, "WaterTank");
-		GameRegistry.addRecipe(new ItemStack(waterMaker), "X X", "S#S", "SSS", Character.valueOf('X'), Wecraft.metalStick, Character.valueOf('S'), Blocks.stone, Character.valueOf('#'),
+		GameRegistry.addRecipe(new ItemStack(waterMaker), "X X", "S#S", "SSS", 'X', Wecraft.metalStick, 'S', Blocks.stone, '#',
 				Items.bucket);
 		//Metal Stick
 		GameRegistry.registerItem(metalStick, "MetalStick");
-		GameRegistry.addRecipe(new ItemStack(metalStick, 8), "XXX", "X#X", "XXX", Character.valueOf('X'), Items.stick, Character.valueOf('#'), Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(metalStick, 8), "XXX", "X#X", "XXX", 'X', Items.stick, '#', Items.iron_ingot);
 	}
 }
