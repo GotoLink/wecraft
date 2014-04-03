@@ -1,0 +1,23 @@
+<mod modid="wecraft">
+    <mcVersion version="1.7.2">
+        <release type="release" version="0.2"
+                 url="http://www.minecraftforum.net/topic/1651891-172forgegotolink-updates-mystic-mods/#wecraft"
+                 download="http://www.mediafire.com/download/63gibzcg7cbw6en/W3(r4ft-0.2(1.7.2).jar"
+                 md5="5AD0A6302282CAA221B0A320EE5D26A9"
+                />
+    </mcVersion>
+	<mcVersion version="1.6.4">
+        <release type="release" version="0.1"
+                 url="http://www.minecraftforum.net/topic/1651891-172forgegotolink-updates-mystic-mods/#wecraft"
+                 download="http://www.mediafire.com/download/j4iw93o3til1sp5/W3(r4ft_0.1(1.6.X).zip"
+                 md5="BA1A6CBA8309509777F399269B1DEB24"
+                />
+    </mcVersion>
+    <mcVersion version="1.6.2">
+        <release type="release" version="0.1"
+                 url="http://www.minecraftforum.net/topic/1651891-172forgegotolink-updates-mystic-mods/#wecraft"
+                 download="http://www.mediafire.com/download/j4iw93o3til1sp5/W3(r4ft_0.1(1.6.X).zip"
+                 md5="BA1A6CBA8309509777F399269B1DEB24"
+                />
+    </mcVersion>
+</mod>

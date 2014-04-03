@@ -20,7 +20,7 @@ minecraft {
     assetDir = "eclipse/assets"
 }
 archivesBaseName = "W3(r4ft"
-version = "0.2(1.7.2)"
+version = "0.2"
 sourceSets.main.java{srcDirs project.projectDir.getPath() include("wecraft/**")}
 sourceSets.main.resources{srcDirs project.projectDir.getPath() include("assets/**" , "*.mcmeta", "*.info")}
 processResources {
@@ -34,4 +34,11 @@ processResources {
     from(project.sourceSets.main.resources.srcDirs) {
         include("*.lang", "*.png", "*.mcmeta")
     }
+}
+jar {
+    //Keep the jar as clean as possible
+    includeEmptyDirs = false
+    //Append with minecraft version
+    classifier = "("+minecraft.version+")"
+    archiveName = archivesBaseName + "-" + version + classifier+"."+extension
 }

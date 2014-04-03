@@ -1,5 +1,7 @@
 package wecraft;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.ModContainer;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -25,6 +27,16 @@ public class Wecraft {
 
 	@EventHandler
 	public void preload(FMLPreInitializationEvent event) {
+        if(event.getSourceFile().getName().endsWith(".jar") && event.getSide().isClient()){
+            try {
+                Class.forName("mods.mud.ModUpdateDetector").getDeclaredMethod("registerMod", ModContainer.class, String.class, String.class).invoke(null,
+                        FMLCommonHandler.instance().findContainerFor(this),
+                        "https://raw.github.com/GotoLink/wecraft/master/update.xml",
+                        "https://raw.github.com/GotoLink/wecraft/master/changelog.md"
+                );
+            } catch (Throwable e) {
+            }
+        }
 		CreativeTabs tab = new CreativeTabs("W3(r4ft") {
 			@Override
 			@SideOnly(Side.CLIENT)
