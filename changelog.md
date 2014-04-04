@@ -5,7 +5,7 @@
 * Other code improvements
 * Added support for M.U.D
 
-== W3(r4ft 0.1 (1.6.X) =
+== W3(r4ft 0.1 (1.6.X) ==
 * Port to Forge
 * Added mc.modinfo file
 * Added pack.mcmeta file
