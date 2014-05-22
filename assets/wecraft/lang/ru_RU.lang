@@ -1,0 +1,15 @@
+
+tile.Conveyor Belt.name=Конвейерная лента
+tile.Arrow Sensor.name=Мишень для стрел
+tile.Drill.name=Дрель
+tile.Fire Sensor.name=Пожарная тревога
+tile.Metal Mesh.name=Металлическая сетка
+tile.Drill-Head.name=Насадка для дрели
+tile.Time Sensor.name=Датчик времени
+tile.Burner.name=Горелка
+tile.Water Tank.name=Резервуар для воды
+
+item.Drill Head.name=Насадка для дрели
+item.Metal Stick.name=Металлическая палка
+
+itemGroup.W3(r4ft=W3(r4ft
