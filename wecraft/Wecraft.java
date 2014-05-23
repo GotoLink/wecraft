@@ -45,6 +45,11 @@ public class Wecraft {
 			}
 		};
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
+        waterTankRadiusWide = cfg.get("general", "WaterTankRadiusWide", 5).getInt();
+        waterTankRadiusDepth = cfg.get("general", "WaterTankRadiusDepth", 5).getInt();
+        convertyTexture = cfg.get("general", "ConvertyBeltAnimation", 1).getInt();
+        if(cfg.hasChanged())
+            cfg.save();
 		// saverItem = new BlockWtSaverItem(cfg.get("ItemSaverID", 3170), 2).setHardness(0.5F).setResistance(1.0F).setBlockName("Item Saver").setStepSound(Block.soundSandFootstep);
 		conveyorBelt = new BlockConveyorBelt().setHardness(0.5F).setHardness(3.0F).setBlockTextureName("wecraft:ConvertyBelt/ConveyorBelt_")
 				.setBlockName("Conveyor Belt").setStepSound(Block.soundTypeMetal).setCreativeTab(tab);
@@ -66,11 +71,7 @@ public class Wecraft {
 				.setStepSound(Block.soundTypePiston).setCreativeTab(tab);
 		drillHeadItem = new Item().setTextureName("wecraft:DrillHead").setUnlocalizedName("Drill Head").setMaxStackSize(1).setCreativeTab(tab);
 		metalStick = new Item().setTextureName("wecraft:MetalStick").setUnlocalizedName("Metal Stick").setMaxStackSize(64).setCreativeTab(tab);
-		waterTankRadiusWide = cfg.get("general", "WaterTankRadiusWide", 5).getInt();
-		waterTankRadiusDepth = cfg.get("general", "WaterTankRadiusDepth", 5).getInt();
-		convertyTexture = cfg.get("general", "ConvertyBeltAnimation", 1).getInt();
-        if(cfg.hasChanged())
-		    cfg.save();
+
 		/*
 		 * //Itemsaver GameRegistry.registerBlock(saverItem, "ItemSaver");
 		 * LanguageRegistry.addName(saverItem, "Item Saver");
