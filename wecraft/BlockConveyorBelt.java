@@ -30,7 +30,7 @@ public class BlockConveyorBelt extends Block {
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
-		return AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, j + 0.52F, k + 1);
+		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, j + 0.52F, k + 1);
 	}
 
 	@Override

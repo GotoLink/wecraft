@@ -91,7 +91,7 @@ public class BlockSaverItem extends Block {
 
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
-		return AxisAlignedBB.getAABBPool().getAABB(i, j, k, i + 1, (float) j + 1 - 0.025F, k + 1);
+		return AxisAlignedBB.getBoundingBox(i, j, k, i + 1, (float) j + 1 - 0.025F, k + 1);
 	}
 
 	@Override
